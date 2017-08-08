@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Detailer</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bungee+Inline">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo">
+    <link rel="stylesheet" href="assets/css/Alex_NavDefault.css">
+    <link rel="stylesheet" href="assets/css/dh-navbar-inverse.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="assets/css/Panel-Glass.css">
+    <link rel="stylesheet" href="assets/css/Panel-Glass1.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/THANOS_fullscreen_image_with_text1.css">
+</head>
+
+<body>
+    <div id="bdiv">
+        <div id="cdiv"></div>
+        <div></div>
+        <div class="form-group"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>Paragraph</p>
+            </div>
+            <div class="col-md-12">
+                <p>Paragraph</p>
+            </div>
+            <div class="col-md-12">
+                <p>Paragraph</p>
+                <p>Paragraph</p>
+                <p>Paragraph</p>
+            </div>
+        </div>
+        <div>
+            <div class="row" style="margin:0;">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="text-center fwhite" style="color:rgb(150,3,3);font-family:'Miltonian Tattoo', cursive;font-size:58px;">Destination - Detailer</h1>
+                    <form>
+                        <input class="form-control form-control" type="text" autofocus="" autocomplete="on" data-aos="zoom-in" data-aos-duration="550" data-aos-delay="50" data-aos-once="true" id="input_destination" placeholder="Enter your destination here..."
+                        style="height:40px;color:rgb(130,42,42);font-size:19px;font-family:Acme, sans-serif;">
+                    </form>
+                    
+                <div class="col-md-12">
+                    <h3 class="text-center text-danger">Recent Searches:</h3>
+                    <div id="recent-searches"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="assets/js/homepage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script type="text/javascript" >
+     
+        // Initialize Firebase
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDi1f-WkstSuOgvNPTTz6TH6HoB-Huu2HQ",
+    authDomain: "project-1-ac064.firebaseapp.com",
+    databaseURL: "https://project-1-ac064.firebaseio.com",
+    projectId: "project-1-ac064",
+    storageBucket: "project-1-ac064.appspot.com",
+    messagingSenderId: "275546698626"
+  };
+  firebase.initializeApp(config);
+
+
+
+    var recent_database = firebase.database();
+    var recent_count = 0;
+
+
+recent_database.ref().on("child_added", function(childSnapshot) {
+
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().Searched_location);
+      console.log(childSnapshot.val().Search_id);
+     
+
+      
+      // full list of items to the well
+      if (recent_count<10) {
+        $("#recent-searches").prepend('<button class="btn btn-primary" type="button" style="margin:13px;">'+childSnapshot.val().Searched_location+'</button>');
+       // recent_count++;
+
+      }
+      
+
+    // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+
+
+
+
+    $(document).submit(function(){
+
+         var search=$("#input_destination").val().trim();
+        alert(search);
+
+      // Code for the push
+      recent_database.ref().push({
+
+        Searched_location: search,
+        Search_id: no_of_search++,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      
+    
+    
+
+     
+    });
+       
+
+
+ 
+
+   
+    
+
+    
+
+    
+
+
+
+    </script>
+</body>
+
+</html>
