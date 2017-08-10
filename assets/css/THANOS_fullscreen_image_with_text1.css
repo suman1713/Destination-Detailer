@@ -1,5 +1,5 @@
 div#bdiv {
-  position:absolute;
+  position:fixed;
   background:url(../../assets/img/pexels-photo-297755.jpeg) repeat;
   background-size:cover;
   height:100%;
