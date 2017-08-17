@@ -42,8 +42,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     <h1 class="text-center fwhite" style="color:rgb(150,3,3);font-family:'Miltonian Tattoo', cursive;font-size:58px;">Destination - Detailer</h1>
                     <form>
-                        <input class="form-control form-control" type="text" autofocus="" autocomplete="on" data-aos="zoom-in" data-aos-duration="550" data-aos-delay="50" data-aos-once="true" id="input_destination" placeholder="Enter your destination here..."
-                        style="height:40px;color:rgb(130,42,42);font-size:19px;font-family:Acme, sans-serif;">
+                        <input class="form-control form-control" type="text" autofocus="" autocomplete="on" data-aos="zoom-in" data-aos-duration="550" data-aos-delay="50" data-aos-once="true" id="input_destination" placeholder="Enter your destination here..." 
+                        style="height:40px;color:rgb(130,42,42);font-size:19px;font-family:Acme, sans-serif;" required>
                     </form>
                     
                 <div class="col-md-12">
@@ -72,7 +72,7 @@
      
 var recent_count = 0;
     var no_of_search=0;
-
+    var search
     // Initialize Firebase
   var config = {
     apiKey: "AIzaSyC9e6rdvj5qcTUm5eP4p7P2Ur8qQ4q7jf8",
@@ -99,11 +99,11 @@ recent_database.ref().limitToLast(10).on("child_added", function(childSnapshot) 
 
       
       // full list of items to the well
-      if (recent_count<100) {
-        $("#recent-searches").prepend('<button class="btn btn-primary" type="button" style="margin:13px;">'+childSnapshot.val().Searched_location+'</button>');
+    
+        $("#recent-searches").prepend('<button class="btn btn-primary" id="recentsearch_btn" type="button" style="margin:13px;">'+childSnapshot.val().Searched_location+'</button>');
        // recent_count++;
 
-      }
+      
       
 
     // Handle the errors
@@ -116,10 +116,17 @@ recent_database.ref().limitToLast(10).on("child_added", function(childSnapshot) 
 
     $(document).submit(function(){
 
-         var search=$("#input_destination").val().trim();
-        alert(no_of_search);
+         var search=$("#input_destination").val().split(",")[0];
         no_of_search++;
-      // Code for the push
+        
+
+        localStorage.setItem("searched_place", search);
+
+
+
+
+
+      // Code for the push into database
       recent_database.ref().push({
 
         Searched_location: search,
@@ -127,13 +134,23 @@ recent_database.ref().limitToLast(10).on("child_added", function(childSnapshot) 
         dateAdded: firebase.database.ServerValue.TIMESTAMP
       });
 
-      
-    
+      window.location.href = "results.html";
+      return false;
     
 
      
     });
-       
+
+$(document).on('click', '#recentsearch_btn', function(){
+
+	var search=$(this).text().split(",")[0];
+	console.log(search);
+	localStorage.setItem("searched_place", search);
+	window.location.href = "results.html";
+      return false;
+
+
+});       
 
 
  
@@ -157,7 +174,7 @@ recent_database.ref().limitToLast(10).on("child_added", function(childSnapshot) 
       //google auto complete
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.8688, lng: 151.2195},
+          center: {lat: 38.957671, lng: -98.083346},
           zoom: 13
         });
        // var card = document.getElementById('pac-card');
