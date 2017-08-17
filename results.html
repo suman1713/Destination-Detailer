@@ -137,7 +137,7 @@
      <script type="text/javascript">
 //weather api
    var APIKey = "166a433c57516f51dfab1f7edaed8413";
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?" +
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
       "q="+localStorage.getItem('searched_place')+"&units=imperial&appid=" + APIKey;
 
    console.log(queryURL);
@@ -201,7 +201,7 @@
 
    
           var x = localStorage.getItem('searched_place'); 
-          var form = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + x + "&callback=?";
+          var form = "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + x + "&callback=?";
         
         $.ajax({
             type: "GET",
@@ -244,7 +244,7 @@
           var x = localStorage.getItem('searched_place'); 
 
    var APIKey = "4vnDGKRSbtdZPfHj";
-    var queryURL = "http://api.eventful.com/json/events/search?app_key=4vnDGKRSbtdZPfHj&location="+x;
+    var queryURL = "https://api.eventful.com/json/events/search?app_key=4vnDGKRSbtdZPfHj&location="+x;
 
    console.log(queryURL);
 
