@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bungee+Inline">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo">
-    <link rel="stylesheet" href="assets/css/Alex_NavDefault.css">
+    col
     <link rel="stylesheet" href="assets/css/dh-navbar-inverse.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet" href="assets/css/Panel-Glass1.css">
@@ -38,10 +38,10 @@
                             </div>
                             <div class="collapse navbar-collapse" id="navcol-1">
                                 <ul class="nav navbar-nav navbar-right" style="margin-top:13px;">
-                                    <li role="presentation"><a href="#" uk-scroll="offset:50">Home </a></li>
-                                    <li role="presentation"><a href="#empresa" uk-scroll="offset:100">Place1 </a></li>
-                                    <li role="presentation"><a href="#areas" uk-scroll="offset:100">Place 2</a></li>
-                                    <li role="presentation"><a href="#diferencial" uk-scroll="offset:50">Place 3</a></li>
+                                    <li role="presentation"><a href="index.html" uk-smooth-scroll="offset:50">Home </a></li>
+                                   
+                                    <li role="presentation"><a href="#article" uk-smooth-scroll="offset:100">Information</a></li>
+                                    <li role="presentation"><a href="#event" uk-smooth-scroll="offset:">Local Events</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -120,6 +120,7 @@
 
 
 
+
                             </p>
                         </div>
                     </div>
@@ -137,7 +138,7 @@
      <script type="text/javascript">
 //weather api
    var APIKey = "166a433c57516f51dfab1f7edaed8413";
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?" +
       "q="+localStorage.getItem('searched_place')+"&units=imperial&appid=" + APIKey;
 
    console.log(queryURL);
@@ -201,7 +202,7 @@
 
    
           var x = localStorage.getItem('searched_place'); 
-          var form = "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + x + "&callback=?";
+          var form = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + x + "&callback=?";
         
         $.ajax({
             type: "GET",
@@ -244,7 +245,7 @@
           var x = localStorage.getItem('searched_place'); 
 
    var APIKey = "4vnDGKRSbtdZPfHj";
-    var queryURL = "https://api.eventful.com/json/events/search?app_key=4vnDGKRSbtdZPfHj&location="+x;
+    var queryURL = "http://api.eventful.com/json/events/search?app_key=4vnDGKRSbtdZPfHj&location="+x;
 
    console.log(queryURL);
 
@@ -267,7 +268,13 @@
                 }else{
                 var url=data.events.event[i].image.thumb.url;}
 
-                 $("#event").append("<div class='panel panel-default' style='margin:10px; color:black;'><div class='panel-heading'><h3 class='text-success panel-title'><a href='"+data.events.event[i].url+"'>"+data.events.event[i].title+"</a></h3></div><div class='panel-body'> <div id='eventimage' style='display:inline;'><img src='"+url+"' style='height: 60px; width:60px;'/></div><div id='text-description' style='overflow: scroll; height:6em;'>"+data.events.event[i].description+" </div><div id='starttime'>Starts:"+data.events.event[i].start_time+"<br>Venue:"+data.events.event[i].venue_address+"</div></div>");
+                if(data.events.event[i].description=== null){
+                    var description='No Description Available';
+
+                }else{
+                var description=data.events.event[i].description;}
+
+                 $("#event").append("<div class='panel panel-default' style='margin:10px; color:black;'><div class='panel-heading'><h3 class='text-success panel-title'><a href='"+url+"'>"+data.events.event[i].title+"</a></h3></div><div class='panel-body'> <div id='eventimage' style='display:inline;'><img src='"+url+"' style='height: 60px; width:60px ;'/>Starts:"+data.events.event[i].start_time+"<br>Venue:"+data.events.event[i].venue_address+"</div></div><div id='text-description' style='overflow: auto; height:6em;'><p>"+description+"</p></div><p><a href='"+data.events.event[i].url+"'> Learn More</p>");
 
 
                  
