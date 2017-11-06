@@ -68,101 +68,11 @@
     <script src="assets/js/homepage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-    <script type="text/javascript" >
+    
+
+
+    <script src="assets/js/homepage.js">
      
-var recent_count = 0;
-    var no_of_search=0;
-    var search
-    // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyC9e6rdvj5qcTUm5eP4p7P2Ur8qQ4q7jf8",
-    authDomain: "project-1-recent.firebaseapp.com",
-    databaseURL: "https://project-1-recent.firebaseio.com",
-    projectId: "project-1-recent",
-    storageBucket: "project-1-recent.appspot.com",
-    messagingSenderId: "123006230299"
-  };
-  firebase.initializeApp(config);
-
-
-
-    var recent_database = firebase.database();
-    
-
-
-recent_database.ref().limitToLast(10).on("child_added", function(childSnapshot) {
-
-      // Log everything that's coming out of snapshot
-      console.log(childSnapshot.val().Searched_location);
-      console.log(childSnapshot.val().Search_id);
-     
-
-      
-      // full list of items to the well
-    
-        $("#recent-searches").prepend('<button class="btn btn-primary" id="recentsearch_btn" type="button" style="margin:13px;">'+childSnapshot.val().Searched_location+'</button>');
-       // recent_count++;
-
-      
-      
-
-    // Handle the errors
-    }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-    });
-
-
-
-
-    $(document).submit(function(){
-
-         var search=$("#input_destination").val().split(",")[0];
-        no_of_search++;
-        
-
-        localStorage.setItem("searched_place", search);
-
-
-
-
-
-      // Code for the push into database
-      recent_database.ref().push({
-
-        Searched_location: search,
-        Search_id: no_of_search,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-      });
-
-      window.location.href = "results.html";
-      return false;
-    
-
-     
-    });
-
-$(document).on('click', '#recentsearch_btn', function(){
-
-	var search=$(this).text().split(",")[0];
-	console.log(search);
-	localStorage.setItem("searched_place", search);
-	window.location.href = "results.html";
-      return false;
-
-
-});       
-
-
- 
-
-   
-    
-
-    
-
-    
-
-
 
     </script>
 
@@ -177,29 +87,15 @@ $(document).on('click', '#recentsearch_btn', function(){
           center: {lat: 38.957671, lng: -98.083346},
           zoom: 13
         });
-       // var card = document.getElementById('pac-card');
-        var input = document.getElementById('input_destination');
-       // var types = document.getElementById('type-selector');
-       // var strictBounds = document.getElementById('strict-bounds-selector');
-
+             var input = document.getElementById('input_destination');
+       
 
         var autocomplete = new google.maps.places.Autocomplete(input);
 
-        // Bind the map's bounds (viewport) property to the autocomplete object,
-        // so that the autocomplete requests use the current map bounds for the
-        // bounds option in the request.
+        
         autocomplete.bindTo('bounds', map);
 
-        
-        
-
-        
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
        
-        
-
-        
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxpdRysjZVoX9G1D-yCp8VOaAEEfGZkzs&libraries=places&callback=initMap"
